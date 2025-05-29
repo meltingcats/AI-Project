@@ -28,6 +28,21 @@ print("Binary label shape:", y_binary.shape)
 #Check First Few Rows of Metadata
 print(metadata.head())
 
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+
+# Encode category labels to integers
+le = LabelEncoder()
+y = le.fit_transform(df['category'])
+X_features = df.drop(columns=['category'])
+
+# Create train/test sets
+X_train, X_test, y_train, y_test = train_test_split(
+    X_features, y, test_size=0.2, stratify=y, random_state=42
+)
+
+
 #trying Random Forest Classifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
